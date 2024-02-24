@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายการสินค้าที่จอง</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="my-4">รายการสินค้าที่จอง</h1>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>รูป</th>
+                    <th>คนขับ</th>
+                    <th>ประเภท</th>
+                    <th>จำนวนไร่</th>
+                    <th>ที่อยู่</th>
+                    <th>รายละเอียด</th>
+                    <th>เบอร์โทร</th>
+                    <th>สถานะ</th>
+                    <th>ตารางเกี่ยว</th>
+                    <th>ดำเนินการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- วนลูปแสดงข้อมูลสินค้าที่จอง -->
+                {% for b in booking %}
+                <tr>
+                    <td>{{ b.id }}</td>
+                    <td><img src="{{ b.vehicle.image.url }}" alt="Product Image" width="100"></td>
+                    <td>{{ b.vehicle.driver}}</td>
+                    <td>{{b.vehicle.type}}</td>
+                    <td>{{b.quantity}}</td>
+                    <td>{{b.address}}</td>
+                    <td>{{b.details}}</td>
+                    <td>{{b.phone}}</td>
+                    <td>{{b.st}}</td>
+                    <td>ตารางเกี่ยว</td>
+                    <td>
+                        <!-- ปุ่มดำเนินการ -->
+                        <button type="button" class="btn btn-primary">แก้ไข</button>
+                        <button type="button" class="btn btn-danger">ลบ</button>
+                    </td>
+                </tr>
+                {% endfor %}
+                <!-- สิ้นสุดวนลูป -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

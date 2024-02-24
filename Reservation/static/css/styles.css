@@ -1,0 +1,682 @@
+/*home farmer*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-image: url("https://codzsword.github.io/bootstrap-sidebar/background-image.jpg");
+    /*background-color: rgb(187, 187, 187);*/
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+.navbar {
+    background-color: #122335;
+    /* Navbar background color */
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    /* Navbar text color */
+}
+
+h3 {
+    font-size: 1.2375rem;
+    color: #FFF;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+li {
+    list-style: none;
+}
+
+/* Layout skeleton */
+
+.wrapper {
+    align-items: stretch;
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    max-width: 264px;
+    min-width: 264px;
+    transition: all 0.35s ease-in-out;
+    box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.5);
+    z-index: 1111;
+}
+
+/* Sidebar collapse */
+
+#sidebar.collapsed {
+    margin-left: -264px;
+}
+
+
+.sidebar-logo {
+    padding: 1.15rem 1.5rem;
+}
+
+.sidebar-logo a {
+    color: #e9ecef;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.sidebar-nav {
+    padding: 0;
+}
+
+.sidebar-header {
+    color: #e9ecef;
+    font-size: .75rem;
+    padding: 1.5rem 1.5rem .375rem;
+}
+
+a.sidebar-link {
+    padding: .625rem 1.625rem;
+    color: #e9ecef;
+    position: relative;
+    display: block;
+    font-size: 1rem;
+}
+
+.sidebar-link[data-bs-toggle="collapse"]::after {
+    border: solid;
+    border-width: 0 .075rem .075rem 0;
+    content: "";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.4rem;
+    transform: rotate(-135deg);
+    transition: all .2s ease-out;
+}
+
+.sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    transition: all 0.35s ease-in-out;
+}
+
+.content {
+    flex: 1;
+    max-width: 100vw;
+    width: 100vw;
+    color: initial;
+}
+
+.container-fluid.bg-light {
+    width: 100%;
+    height: 62px;
+    flex-shrink: 0;
+    border: 1px solid #000;
+    background: #D9D9D9;
+    mix-blend-mode: hard-light;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    justify-content: flex-start;
+    /* Align content to the start (left) */
+    align-items: center;
+    height: 62px;
+    /* Adjust the height as needed */
+    background-color: #D9D9D9;
+    /* Ensure background color is set */
+    padding-left: 20px;
+    /* Add some left padding for space */
+    align-items: center;
+    /* Adjust the height as needed */
+
+    /* Adjust the height as needed */
+    background-color: #D9D9D9;
+    /* Ensure background color is set */
+}
+
+.container-fluid.bg-light h3 {
+    color: black;
+    margin: 0;
+    padding-left: 20px;
+    /* Remove default margin */
+}
+
+.product-container {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.product-details {
+    padding: 20px;
+
+}
+
+.product-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    /* Set your desired text color here */
+}
+
+.product-description {
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    color: #e44d26;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #e44d26;
+    border-color: #e44d26;
+}
+
+.btn-primary:hover {
+    background-color: #d23e20;
+    border-color: #d23e20;
+}
+
+.h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+max-height: 26px;
+margin-right: 6px;
+}
+
+.logo span {
+font-size: 26px;
+font-weight: 700;
+color: #012970;
+font-family: "Nunito", sans-serif;
+}
+
+/*--------------------------------------------------------------
+# Header Nav
+--------------------------------------------------------------*/
+.header-nav ul {
+list-style: none;
+}
+
+.header-nav>ul {
+margin: 0;
+padding: 0;
+}
+
+.header-nav .nav-icon {
+font-size: 22px;
+color: #012970;
+margin-right: 25px;
+position: relative;
+}
+
+.header-nav .nav-profile {
+color: #012970;
+}
+
+.header-nav .nav-profile img {
+max-height: 36px;
+}
+
+.header-nav .nav-profile span {
+font-size: 14px;
+font-weight: 600;
+}
+
+.header-nav .badge-number {
+position: absolute;
+inset: -2px -5px auto auto;
+font-weight: normal;
+font-size: 12px;
+padding: 3px 6px;
+}
+
+.header-nav .profile {
+min-width: 240px;
+padding-bottom: 0;
+top: 8px !important;
+}
+
+.header-nav .profile .dropdown-header h6 {
+font-size: 18px;
+margin-bottom: 0;
+font-weight: 600;
+color: #444444;
+}
+
+.header-nav .profile .dropdown-header span {
+font-size: 14px;
+}
+
+.header-nav .profile .dropdown-item {
+font-size: 14px;
+padding: 10px 15px;
+transition: 0.3s;
+}
+
+.header-nav .profile .dropdown-item i {
+margin-right: 10px;
+font-size: 18px;
+line-height: 0;
+}
+
+.header-nav .profile .dropdown-item:hover {
+background-color: #f6f9ff;
+}
+
+
+
+/* Responsive */
+
+@media (min-width:768px) {
+    .content {
+        width: auto;
+    }
+}
+/* end */
+
+/* home */
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-image: url("https://codzsword.github.io/bootstrap-sidebar/background-image.jpg");
+    /*background-color: rgb(187, 187, 187);*/
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+}
+
+.navbar {
+    background-color: #122335;
+    /* Navbar background color */
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    /* Navbar text color */
+}
+
+h3 {
+    font-size: 1.2375rem;
+    color: #FFF;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+li {
+    list-style: none;
+}
+
+/* Layout skeleton */
+
+.wrapper {
+    align-items: stretch;
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    max-width: 264px;
+    min-width: 264px;
+    transition: all 0.35s ease-in-out;
+    box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.5);
+    z-index: 1111;
+}
+
+/* Sidebar collapse */
+
+#sidebar.collapsed {
+    margin-left: -264px;
+}
+
+
+.sidebar-logo {
+    padding: 1.15rem 1.5rem;
+}
+
+.sidebar-logo a {
+    color: #e9ecef;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.sidebar-nav {
+    padding: 0;
+}
+
+.sidebar-header {
+    color: #e9ecef;
+    font-size: .75rem;
+    padding: 1.5rem 1.5rem .375rem;
+}
+
+a.sidebar-link {
+    padding: .625rem 1.625rem;
+    color: #e9ecef;
+    position: relative;
+    display: block;
+    font-size: 1rem;
+}
+
+.sidebar-link[data-bs-toggle="collapse"]::after {
+    border: solid;
+    border-width: 0 .075rem .075rem 0;
+    content: "";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.4rem;
+    transform: rotate(-135deg);
+    transition: all .2s ease-out;
+}
+
+.sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    transition: all 0.35s ease-in-out;
+}
+
+.content {
+    flex: 1;
+    max-width: 100vw;
+    width: 100vw;
+    color: initial;
+}
+
+.container-fluid.bg-light {
+    width: 100%;
+    height: 62px;
+    flex-shrink: 0;
+    border: 1px solid #000;
+    background: #D9D9D9;
+    mix-blend-mode: hard-light;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    display: flex;
+    justify-content: flex-start;
+    /* Align content to the start (left) */
+    align-items: center;
+    height: 62px;
+    /* Adjust the height as needed */
+    background-color: #D9D9D9;
+    /* Ensure background color is set */
+    padding-left: 20px;
+    /* Add some left padding for space */
+    align-items: center;
+    /* Adjust the height as needed */
+
+    /* Adjust the height as needed */
+    background-color: #D9D9D9;
+    /* Ensure background color is set */
+}
+
+.container-fluid.bg-light h3 {
+    color: black;
+    margin: 0;
+    padding-left: 20px;
+    /* Remove default margin */
+}
+
+.product-container {
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.product-details {
+    padding: 20px;
+
+}
+
+.product-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    /* Set your desired text color here */
+}
+
+.product-description {
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    color: #e44d26;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #e44d26;
+    border-color: #e44d26;
+}
+
+.btn-primary:hover {
+    background-color: #d23e20;
+    border-color: #d23e20;
+}
+
+.h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/* Responsive */
+
+@media (min-width: 992px) {
+    .navbar-nav {
+        margin-left: auto;
+    }
+
+    .navbar-nav .dropdown-menu {
+        left: auto;
+        right: 0;
+    }
+}
+/* end */
+/* edit */
+
+
+.edit-container  {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    /* ปรับความกว้างของ container เพื่อทำให้เล็กลง */
+    width: 100%;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.edit-container .form {
+    padding: 2rem;
+}
+
+.form header {
+    font-size: 2rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.form input {
+    height: 45px;
+    /* ปรับความสูงของ input เพื่อทำให้เล็กลง */
+    width: 100%;
+    padding: 0 10px;
+    /* ปรับ padding เพื่อทำให้เล็กลง */
+    font-size: 15px;
+    /* ปรับขนาดตัวอักษรเพื่อทำให้เล็กลง */
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    display: block;
+    /* ทำให้ Input เป็น block element */
+}
+
+.form input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* เพิ่ม CSS สำหรับ Label */
+.form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #009579;
+    cursor: pointer;
+}
+
+.form a {
+    font-size: 16px;
+    color: #009579;
+    text-decoration: none;
+}
+
+.form a:hover {
+    text-decoration: underline;
+}
+
+.form input.button {
+    color: #fff;
+    background: #009579;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-top: 1.7rem;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.form input.button:hover {
+    background: #006653;
+}
+
+/* addcar */
+.addcar-container {
+    position: absolute;
+    top: 55%; /* ปรับค่า top ตามความต้องการ */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 500px;
+    width: 100%;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+.addcar-container .form {
+    padding: 2rem;
+    
+}
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    
+}
+
+
+
+input[type="file"] {
+    padding: 10px;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.image-preview {
+    width: 100%;
+    height: 200px;
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
