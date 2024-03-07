@@ -1,4 +1,3 @@
-
 <!-- addcar.html -->
 {% extends "components/base.html" %}
 
@@ -7,123 +6,137 @@
 {% endblock %}   
 
 {% block main %}
-            {% include "components/slider_driver.html" %}
+    {% include "components/slider_driver.html" %}
 
     <div class="addcar-container">
         <div class="form">
-        <h2>เพิ่มรถ</h2>
-        <div class="image-preview">
-            <img id="preview" src="#" alt="Preview">
+            <h1>เพิ่มรถ</h1>
+            <div class="image-preview">
+                <img id="preview" src="#" alt="Preview">
+            </div>
+            <form id="add_vehicle_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="image" class="form-label">รูปภาพรถ</label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*" required onchange="previewImage(event)">
+    
+                <label for="model" class="form-label">รุ่น</label>
+                <input type="text" class="form-control" id="model" name="model" required>
+    
+                <label for="type" class="form-label">ประเภทรถ</label>
+                <select class="form-select" id="type" name="type" required>
+                    <option value="" selected disabled>-- เลือกประเภท --</option>
+                    <option value="แบบรองกระสอบ">แบบรองกระสอบ</option>
+                    <option value="แบบถังอุ้ม">แบบถังอุ้ม</option>
+                </select>
+    
+                <label for="price" class="form-label">ราคาต่อไร่:</label>
+                <input type="number" class="form-control" id="price" name="price" required>
+       
+                <label for="province" class="form-label">จังหวัดที่ลงพื้นที่</label>
+                <select class="form-select" id="province" name="province" required>
+                    <option value="" selected disabled>-- เลือกจังหวัด --</option>
+                    <option value="Bangkok">จังหวัดกรุงเทพมหานคร</option>
+                    <option value="Samut Prakan">จังหวัดสมุทรปราการ</option>
+                    <option value="Nonthaburi">จังหวัดนนทบุรี</option>
+                    <option value="Pathum Thani">จังหวัดปทุมธานี</option>
+                    <option value="Samut Sakhon">จังหวัดสมุทรสาคร</option>
+                    <option value="Samut Songkhram"จังหวัด>สมุทรสงคราม</option>
+                    <option value="Phra Nakhon Si Ayutthaya">จังหวัดพระนครศรีอยุธยา</option>
+                    <option value="Ang Thong">จังหวัดอ่างทอง</option>
+                    <option value="Lop Buri">จังหวัดลพบุรี</option>
+                    <option value="Sing Buri">จังหวัดสิงห์บุรี</option>
+                    <option value="Chai Nat">จังหวัดชัยนาท</option>
+                    <option value="Saraburi">จังหวัดสระบุรี</option>
+                    <option value="Chon Buri">จังหวัดชลบุรี</option>
+                    <option value="Rayong">จังหวัดระยอง</option>
+                    <option value="Chanthaburi">จังหวัดจันทบุรี</option>
+                    <option value="Trat">จังหวัดตราด</option>
+                    <option value="Chachoengsao">จังหวัดฉะเชิงเทรา</option>
+                    <option value="Prachin Buri">จังหวัดปราจีนบุรี</option>
+                    <option value="Nakhon Nayok">จังหวัดนครนายก</option>
+                    <option value="Sa Kaeo">จังหวัดสระแก้ว</option>
+                    <option value="Nakhon Ratchasima">จังหวัดนครราชสีมา</option>
+                    <option value="Buri Ram">จังหวัดบุรีรัมย์</option>
+                    <option value="Surin">จังหวัดสุรินทร์</option>
+                    <option value="Si Sa Ket">ศรีสะเกษ</option>
+                    <option value="Ubon Ratchathani">อุบลราชธานี</option>
+                    <option value="Yasothon">จังหวัดยโสธร</option>
+                    <option value="Chaiyaphum">จังหวัดชัยภูมิ</option>
+                    <option value="Amnat Charoen">จังหวัดอำนาจเจริญ</option>
+                    <option value="Bueng Kan">จังหวัดบึงกาฬ</option>
+                    <option value="Nong Bua Lamphu">จังหวัดหนองบัวลำภู</option>
+                    <option value="Khon Kaen">จังหวัดขอนแก่น</option>
+                    <option value="Udon Thani">จังหวัดอุดรธานี</option>
+                    <option value="Loei">จังหวัดเลย</option>
+                    <option value="Nong Khai">จังหวัดหนองคาย</option>
+                    <option value="Maha Sarakham">จังหวัดมหาสารคาม</option>
+                    <option value="Roi Et">จังหวัดร้อยเอ็ด</option>
+                    <option value="Kalasin">จังหวัดกาฬสินธุ์</option>
+                    <option value="Sakon Nakhon">จังหวัดสกลนคร</option>
+                    <option value="Nakhon Phanom">จังหวัดนครพนม</option>
+                    <option value="Mukdahan">จังหวัดมุกดาหาร</option>
+                    <option value="Chiang Rai">จังหวัดเชียงราย</option>
+                    <option value="Mae Hong Son">จังหวัดแม่ฮ่องสอน</option>
+                    <option value="Nan">จังหวัดน่าน</option>
+                    <option value="Phayao">จังหวัดพะเยา</option>
+                    <option value="Phrae">จังหวัดแพร่</option>
+                    <option value="Lampang">จังหวัดลำปาง</option>
+                    <option value="Lamphun">จังหวัดลำพูน</option>
+                    <option value="Uttaradit">จังหวัดอุตรดิตถ์</option>
+                    <option value="Phitsanulok">จังหวัดพิษณุโลก</option>
+                    <option value="Phichit">จังหวัดพิจิตร</option>
+                    <option value="Phetchabun">จังหวัดเพชรบูรณ์</option>
+                    <option value="Ratchaburi">จังหวัดราชบุรี</option>
+                    <option value="Kanchanaburi">จังหวัดกาญจนบุรี</option>
+                    <option value="Suphan Buri">จังหวัดสุพรรณบุรี</option>
+                    <option value="Nakhon Pathom">จังหวัดนครปฐม</option>
+                    <option value="Samut Sakhon">จังหวัดสมุทรสาคร</option>
+                    <option value="Samut Songkhram">จังหวัดสมุทรสงคราม</option>
+                    <option value="Phetchaburi">จังหวัดเพชรบุรี</option>
+                    <option value="Prachuap Khiri Khan">จังหวัดประจวบคีรีขันธ์</option>
+                    <option value="Nakhon Si Thammarat">จังหวัดนครศรีธรรมราช</option>
+                    <option value="Krabi">จังหวัดกระบี่</option>
+                    <option value="Phangnga">จังหวัดพังงา</option>
+                    <option value="Phuket">จังหวัดภูเก็ต</option>
+                    <option value="Surat Thani">จังหวัดสุราษฎร์ธานี</option>
+                    <option value="Ranong">จังหวัดระนอง</option>
+                    <option value="Chumphon">จังหวัดชุมพร</option>
+                    <option value="Songkhla">จังหวัดสงขลา</option>
+                    <option value="Satun">จังหวัดสตูล</option>
+                    <option value="Trang">จังหวัดตรัง</option>
+                    <option value="Phatthalung">จังหวัดพัทลุง</option>
+                    <option value="Pattani">จังหวัดปัตตานี</option>
+                    <option value="Yala">จังหวัดยะลา</option>
+                    <option value="Narathiwat">จังหวัดนราธิวาส</option>
+                </select> 
+                
+                <input type="submit" class="button" value="เพิ่มรถ">
+            </form>
         </div>
-        <form action="" method="POST"  enctype="multipart/form-data">
-            {% csrf_token %}
-             <label for="image">รูปภาพ:</label>
-            <input type="file" class="form-control" name="image" accept="image/*" required
-                onchange="previewImage(event)">
-
-            <label for="model">รุ่น:</label>
-            <input type="text" class="form-control" name="model" required>
-
-            <label for="type">ประเภทรถ:</label>
-            <select class="form-control" name="type" required>
-                <option value="">เลือกประเภทรถ</option>
-                <option value="Sack">แบบรองกระสอบ</option>
-                <option value="Bucket">แบบถังอุ้ม</option>
-            </select>
-
-            <label for="price">ราคาต่อไร่:</label>
-            <input type="number" class="form-control" name="price" required>
-   
-            <label for="province">จังหวัด:</label>
-            <select class="form-control" name="province" required>
-                <option value="">เลือกจังหวัด</option>
-                <option value="Bangkok">จังหวัดกรุงเทพมหานคร</option>
-                <option value="Samut Prakan">จังหวัดสมุทรปราการ</option>
-                <option value="Nonthaburi">จังหวัดนนทบุรี</option>
-                <option value="Pathum Thani">จังหวัดปทุมธานี</option>
-                <option value="Samut Sakhon">จังหวัดสมุทรสาคร</option>
-                <option value="Samut Songkhram"จังหวัด>สมุทรสงคราม</option>
-                <option value="Phra Nakhon Si Ayutthaya">จังหวัดพระนครศรีอยุธยา</option>
-                <option value="Ang Thong">จังหวัดอ่างทอง</option>
-                <option value="Lop Buri">จังหวัดลพบุรี</option>
-                <option value="Sing Buri">จังหวัดสิงห์บุรี</option>
-                <option value="Chai Nat">จังหวัดชัยนาท</option>
-                <option value="Saraburi">จังหวัดสระบุรี</option>
-                <option value="Chon Buri">จังหวัดชลบุรี</option>
-                <option value="Rayong">จังหวัดระยอง</option>
-                <option value="Chanthaburi">จังหวัดจันทบุรี</option>
-                <option value="Trat">จังหวัดตราด</option>
-                <option value="Chachoengsao">จังหวัดฉะเชิงเทรา</option>
-                <option value="Prachin Buri">จังหวัดปราจีนบุรี</option>
-                <option value="Nakhon Nayok">จังหวัดนครนายก</option>
-                <option value="Sa Kaeo">จังหวัดสระแก้ว</option>
-                <option value="Nakhon Ratchasima">จังหวัดนครราชสีมา</option>
-                <option value="Buri Ram">จังหวัดบุรีรัมย์</option>
-                <option value="Surin">จังหวัดสุรินทร์</option>
-                <option value="Si Sa Ket">ศรีสะเกษ</option>
-                <option value="Ubon Ratchathani">อุบลราชธานี</option>
-                <option value="Yasothon">จังหวัดยโสธร</option>
-                <option value="Chaiyaphum">จังหวัดชัยภูมิ</option>
-                <option value="Amnat Charoen">จังหวัดอำนาจเจริญ</option>
-                <option value="Bueng Kan">จังหวัดบึงกาฬ</option>
-                <option value="Nong Bua Lamphu">จังหวัดหนองบัวลำภู</option>
-                <option value="Khon Kaen">จังหวัดขอนแก่น</option>
-                <option value="Udon Thani">จังหวัดอุดรธานี</option>
-                <option value="Loei">จังหวัดเลย</option>
-                <option value="Nong Khai">จังหวัดหนองคาย</option>
-                <option value="Maha Sarakham">จังหวัดมหาสารคาม</option>
-                <option value="Roi Et">จังหวัดร้อยเอ็ด</option>
-                <option value="Kalasin">จังหวัดกาฬสินธุ์</option>
-                <option value="Sakon Nakhon">จังหวัดสกลนคร</option>
-                <option value="Nakhon Phanom">จังหวัดนครพนม</option>
-                <option value="Mukdahan">จังหวัดมุกดาหาร</option>
-                <option value="Chiang Rai">จังหวัดเชียงราย</option>
-                <option value="Mae Hong Son">จังหวัดแม่ฮ่องสอน</option>
-                <option value="Nan">จังหวัดน่าน</option>
-                <option value="Phayao">จังหวัดพะเยา</option>
-                <option value="Phrae">จังหวัดแพร่</option>
-                <option value="Lampang">จังหวัดลำปาง</option>
-                <option value="Lamphun">จังหวัดลำพูน</option>
-                <option value="Uttaradit">จังหวัดอุตรดิตถ์</option>
-                <option value="Phitsanulok">จังหวัดพิษณุโลก</option>
-                <option value="Phichit">จังหวัดพิจิตร</option>
-                <option value="Phetchabun">จังหวัดเพชรบูรณ์</option>
-                <option value="Ratchaburi">จังหวัดราชบุรี</option>
-                <option value="Kanchanaburi">จังหวัดกาญจนบุรี</option>
-                <option value="Suphan Buri">จังหวัดสุพรรณบุรี</option>
-                <option value="Nakhon Pathom">จังหวัดนครปฐม</option>
-                <option value="Samut Sakhon">จังหวัดสมุทรสาคร</option>
-                <option value="Samut Songkhram">จังหวัดสมุทรสงคราม</option>
-                <option value="Phetchaburi">จังหวัดเพชรบุรี</option>
-                <option value="Prachuap Khiri Khan">จังหวัดประจวบคีรีขันธ์</option>
-                <option value="Nakhon Si Thammarat">จังหวัดนครศรีธรรมราช</option>
-                <option value="Krabi">จังหวัดกระบี่</option>
-                <option value="Phangnga">จังหวัดพังงา</option>
-                <option value="Phuket">จังหวัดภูเก็ต</option>
-                <option value="Surat Thani">จังหวัดสุราษฎร์ธานี</option>
-                <option value="Ranong">จังหวัดระนอง</option>
-                <option value="Chumphon">จังหวัดชุมพร</option>
-                <option value="Songkhla">จังหวัดสงขลา</option>
-                <option value="Satun">จังหวัดสตูล</option>
-                <option value="Trang">จังหวัดตรัง</option>
-                <option value="Phatthalung">จังหวัดพัทลุง</option>
-                <option value="Pattani">จังหวัดปัตตานี</option>
-                <option value="Yala">จังหวัดยะลา</option>
-                <option value="Narathiwat">จังหวัดนราธิวาส</option>
-            </select> 
-            
-            <input type="submit" class="button" value="เพิ่มรถ">
-        </form>
     </div>
-</div>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // สร้างฟังก์ชันสำหรับการแสดงรูปภาพตัวอย่างก่อนเลือกไฟล์
         function previewImage(event) {
             var preview = document.getElementById('preview');
             preview.src = URL.createObjectURL(event.target.files[0]);
         }
+        
+        // สร้างฟังก์ชันสำหรับเซฟข้อมูลฟอร์มลงใน Local Storage
+        function saveFormData() {
+            var formData = {
+                image: document.getElementById('image').value,
+                model: document.getElementById('model').value,
+                type: document.getElementById('type').value,
+                price: document.getElementById('price').value,
+                province: document.getElementById('province').value
+            };
+
+            localStorage.setItem('formData', JSON.stringify(formData));
+
+            // หลังจากเซฟข้อมูล ให้ redirect ไปยังหน้า home
+            window.location.href = "{% url 'home' %}";
+        }
     </script>
-    
 {% endblock %}

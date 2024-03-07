@@ -28,7 +28,6 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item">ราคา: {{ vehicle.price }}ต่อไร่</li>
               <li class="list-group-item">จังหวัด: {{ vehicle.province }}</li>
-              <li class="list-group-item">คนขับ: {{ vehicle.driver.name }}</li>
             </ul>
             <a href="{% url 'booking' vehicle.id %}" class="btn btn-primary">จอง</a>
 <a href="calendar.html" class="btn btn-secondary">ตารางงาน</a>

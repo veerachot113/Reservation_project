@@ -8,6 +8,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group 
 from django.contrib.auth.decorators import login_required
 from Driver.models import Vehicle
+
+
 @login_required
 def custom_logout(request):
     logout(request)
@@ -16,17 +18,6 @@ def custom_logout(request):
 def home_accounts(request):
     vehicles = Vehicle.objects.all()
     return render(request, 'home.html',{'vehicles': vehicles})
-
-@login_required
-def home_farmer(request):
-    vehicles = Vehicle.objects.all()
-    return render(request,'Farmer/home_farmer.html',{'vehicles': vehicles})
-
-@login_required
-def home_driver(request):
-    vehicles = Vehicle.objects.all()
-    return render(request, 'Driver/home_driver.html',{'vehicles': vehicles})
-
 
 def useregister(request):
      return render(request,'chooserole.html') 
@@ -122,9 +113,3 @@ def profile_update(request):
         else:
             form = UserDriverUpdateForm(instance=request.user)
         return render(request, 'profile_driver.html', {'form': form})  # ปรับเปลี่ยนเพื่อใช้ profile_driver.html
-
-
-
-
-
-

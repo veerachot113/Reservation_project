@@ -2,8 +2,13 @@
 from django.shortcuts import render, redirect
 from Driver.models import *
 from .models import *
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
+def home_farmer(request):
+    vehicles = Vehicle.objects.all()
+    return render(request,'Farmer/home_farmer.html',{'vehicles': vehicles})
 def booking(request, id):
     if not request.user.is_authenticated or not request.user.groups.filter(name='farmer').exists():
         return redirect('home_driver')  # หรือไปยัง URL ที่คุณต้องการให้ผู้ใช้กลับไปหน้าเดิมหากไม่ใช่ farmer หรือไม่ได้เข้าสู่ระบบ
