@@ -1,21 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/more-vertical-alt.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/more-vertical-alt.css' rel='stylesheet'>
     <title>Document</title>
     <style>
-        .card-body .gg-more-vertical-alt {
+        .card-body {
+            position: relative;
+        }
+
+        .gg-more-vertical-alt {
             position: absolute;
             top: 0;
-            start: 0;
-            transform: translateY(-50%);
+            right: 0;
+        }
+
+        i {
+            color: black;
+            
+        }
+
+        .dropdown-menu {
+            right: 50%;
+            transform: translateX(100%);
+        }
+
+        .bi-three-dots-vertical {
+            position: absolute;
+            top: 0;
+            right: 1;
+        }
+
+        svg {
+            color: black;
+            margin-right: auto;
         }
     </style>
 </head>
+
 <body>
 
     <div class="container-fluid bg-light">
@@ -25,29 +52,161 @@
     </div>
     <div class="container my-5">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for vehicle in vehicles %}
             <div class="col">
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle float-end" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"><i class="gg-more-vertical-alt"></i></button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="#">ข้อมูลเจ้าของรถ</a></li>
-                                <li><a class="dropdown-item" href="#">ข้อมูลรถเกี่ยว</a></li>
+                            <a class="dropdown-toggle hidden-arrow" type="button" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="gg-more-vertical-alt"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">ข้อมูลคนขับ</span></a></li>
+                                <li>
+                                    <hr class="dropdown-divider bold">
+                                </li>
+                                <li><a class="dropdown-item" href="#">ข้อมูลรถเกี่ยวนวดข้าว</span></a></li>
                             </ul>
-                            <h5 class="card-title">รุ่น:xxxxx</h5>
-                            <h5 class="card-title">ประเภท:xxxxx</h5>
-                            <h5 class="card-title">ราคา:600-700ต่อไร่</h5>
                         </div>
-                        <img src="media\vehicle_images\DC-70Plus-Right-resize_1_czpDrXT.png" class="card-img-top" alt="{{ vehicle.model }}">
+
+                        <h5 class="card-title">รุ่น:{{ vehicle.model }}</h5>
+                        <h5 class="card-title">ประเภท:{{ vehicle.name }}</h5>
+                        <h5 class="card-title">ราคา:{{ vehicle.price }}ต่อไร่ต่อไร่</h5>
+                        <img src="media\vehicle_images\DC-70Plus-Right-resize_1_czpDrXT.png" class="card-img-top"
+                            alt="{{ vehicle.model }}">
 
                         <a href="{% url 'booking' vehicle.id %}" class="btn btn-primary">จอง</a>
                         <a href="calendar.html" class="btn btn-secondary">ตารางงาน</a>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+
 
 
 </body>
+
 </html>
+
+
+
+<div class="container my-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for vehicle in vehicles %}
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle hidden-arrow" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="gg-more-vertical-alt"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">ข้อมูลคนขับ</span></a></li>
+                            <li>
+                                <hr class="dropdown-divider bold">
+                            </li>
+                            <li><a class="dropdown-item" href="#">ข้อมูลรถเกี่ยวนวดข้าว</span></a></li>
+                        </ul>
+                    </div>
+
+                    <h5 class="card-title">รุ่น:{{ vehicle.model }}</h5>
+                    <h5 class="card-title">ประเภท:{{ vehicle.name }}</h5>
+                    <h5 class="card-title">ราคา:{{ vehicle.price }}ต่อไร่ต่อไร่</h5>
+                    <img src="media\vehicle_images\DC-70Plus-Right-resize_1_czpDrXT.png" class="card-img-top"
+                        alt="{{ vehicle.model }}">
+
+                    <a href="{% url 'booking' vehicle.id %}" class="btn btn-primary">จอง</a>
+                    <a href="calendar.html" class="btn btn-secondary">ตารางงาน</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- home.html -->
+{% extends "components/base.html" %}
+{% load static %}
+
+
+{% block cart %}
+<!-- Middle Banner - Combine Harvester -->
+
+<div class="page-banner text-center py-4">
+    <h2 class="text-white">รถเกี่ยวนวดข้าว</h2>
+    <img src="https://raw.githubusercontent.com/veerachot113/image/main/LO_BANNER-NEW-WEB-CH-1900x567-px.webp"
+        alt="Combine Harvester Image" width="573" height="191" class="img-fluid mb-3">
+</div>
+
+<div class="container-fluid bg-light">
+    <div class="row">
+        <h3>รายการรถเกี่ยว</h3>
+    </div>
+</div>
+<div class="container my-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for vehicle in vehicles %}
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="dropdown-menudriver">
+                        <a class="dropdown-toggle hidden-arrow" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                <path
+                                    d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">ข้อมูลคนขับ</span></a></li>
+                            <li>
+                                <hr class="dropdown-divider bold">
+                            </li>
+                            <li><a class="dropdown-item" href="#">ข้อมูลรถเกี่ยวนวดข้าว</span></a></li>
+                        </ul>
+                    </div>
+
+                    <h5 class="card-title">รุ่น:{{ vehicle.model }}</h5>
+                    <h5 class="card-title">ประเภท:{{ vehicle.name }}</h5>
+                    <h5 class="card-title">ราคา:{{ vehicle.price }}ต่อไร่</h5>
+                    <img src="{{ vehicle.image.url }}" class="card-img-top" alt="{{ vehicle.model }}">
+                    <a href="{% url 'booking' vehicle.id %}" class="btn btn-primary">จอง</a>
+
+                    <a href="calendar.html" class="btn btn-secondary">ตารางงาน</a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

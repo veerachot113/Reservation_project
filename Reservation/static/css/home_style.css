@@ -1,0 +1,16 @@
+.card-body {
+    position: relative;
+}
+.gg-more-vertical-alt {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+i {
+    color: black;
+    margin-right: auto;
+}
+.dropdown-menu-dark {
+    right: 50%;
+    transform: translateX(100%);
+}
