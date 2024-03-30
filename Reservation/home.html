@@ -6,15 +6,20 @@
     <title>Product Card with Dropdown</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
     <script>
         function toggleDropdown() {
             document.getElementById("dropdownMenu").classList.toggle("hidden");
         }
     </script>
 </head>
-<body class="bg-gray-100">
+<body >
+    <section class="py-10 bg-gray-100">
 
     <div class="container mx-auto px-4 py-8">
+        <div class="mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+            {% for vehicle in vehicles %}
+        <article class="rounded-xl bg-white p-3 shadow-lg hover:shadow-xl hover:transform hover:scale-105 duration-300 ">
         <div class="relative max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden">
             <!-- Dropdown Button -->
             <div class="absolute top-0 right-0 mt-2 mr-2">
@@ -28,22 +33,26 @@
                 </div>
             </div>
             <!-- Product Image -->
-            <div class="flex justify-center">
-                <img class="w-56 h-56 object-contain" src="media\vehicle_images\pic-DC-70G-PRO-s_1.jpg" alt="Kubota Tractor">
-            </div>
+            <img class="w-full h-56 object-cover object-center" src="{{ vehicle.image.url }}" alt="Kubota Tractor">
             <!-- Product Details -->
-            <div class="p-5 text-center">
-                <h3 class="text-gray-900 font-bold">รุ่น: KUBOTA V2403-M-DI-TE2-CSKC</h3>
-                <p class="text-gray-600">ประเภท: รถแทรกเตอร์</p>
-                <p class="text-gray-600 mb-4">ราคา: 600~700 บาท/เริ่ม</p>
+            <div class="p-5">
+                <h3 class="text-gray-900 font-bold">รุ่น:{{ vehicle.model }}</h3>
+                <p class="text-gray-600">ประเภท:{{ vehicle.type }}</p>
+                <p class="text-gray-600 mb-4">ราคา: {{ vehicle.price }}</p>
                 <!-- Booking Buttons -->
-                <div class="flex justify-center space-x-2">
-                    <button class="px-4 py-2 bg-blue-500 text-white text-xs font-bold uppercase rounded">ตารางการจอง</button>
-                    <button class="px-4 py-2 bg-green-500 text-white text-xs font-bold uppercase rounded">จองทันที</button>
+                <div class="flex justify-center space-x-16 items-center">
+                    <a href="calendar.html " class="w-28 h-10 bg-blue-500 text-white text-xs font-bold uppercase rounded flex justify-center items-center">ตารางการจอง</a>
+                    <a href="{% url 'booking' vehicle.id %}" class="w-28 h-10 bg-green-500 text-white text-xs font-bold uppercase rounded flex justify-center items-center">จองทันที</a>
                 </div>
+                
             </div>
         </div>
+                
+    </article>
+    {% endfor %}
     </div>
+ 
+
 
 </body>
 </html>

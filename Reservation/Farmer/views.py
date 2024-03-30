@@ -32,7 +32,7 @@ def booking(request, id):
             vehicle=vehicles
         )
         b.save()
-        return redirect('home_driver')  # หรือไปยัง URL ที่คุณต้องการ
+        return redirect('home_farmer')  # หรือไปยัง URL ที่คุณต้องการ
    
     return render(request, 'Farmer/booking.html', {'vehicles': vehicles})
 

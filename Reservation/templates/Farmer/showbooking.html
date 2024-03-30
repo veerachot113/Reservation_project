@@ -6,6 +6,12 @@
     <title>รายการสินค้าที่จอง</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* กำหนดความกว้างของเซลล์ที่มีข้อความยาว */
+        .long-text {
+            width: 800px; /* ปรับค่าตามที่ต้องการ */
+        }
+    </style>
 </head>
 <body>
 
@@ -17,12 +23,15 @@
                 <tr>
                     <th>No</th>
                     <th>รูป</th>
-                    <th>คนขับ</th>
+                    <th>ชื่อผู้จอง</th>
+                    <th>ชื่อคนขับ</th>
                     <th>ประเภท</th>
                     <th>จำนวนไร่</th>
                     <th>ที่อยู่</th>
                     <th>รายละเอียด</th>
                     <th>เบอร์โทร</th>
+                    <th>วันที่</th>
+                    <th>เวลา</th>
                     <th>สถานะ</th>
                     <th>ตารางเกี่ยว</th>
                     <th>ดำเนินการ</th>
@@ -34,18 +43,23 @@
                 <tr>
                     <td>{{ b.id }}</td>
                     <td><img src="{{ b.vehicle.image.url }}" alt="Product Image" width="100"></td>
-                    <td>{{ b.vehicle.driver}}</td>
-                    <td>{{b.vehicle.type}}</td>
-                    <td>{{b.quantity}}</td>
-                    <td>{{b.address}}</td>
-                    <td>{{b.details}}</td>
-                    <td>{{b.phone}}</td>
-                    <td>{{b.st}}</td>
-                    <td>ตารางเกี่ยว</td>
+                    <td class="long-text">{{ b.name }}</td>
+                    <td class="long-text">{{ b.vehicle.driver }}</td>
+                    <td class="long-text">{{ b.vehicle.type }}</td>
+                    <td class="long-text">{{ b.quantity }}</td>
+                    <td class="long-text" style="width: 1000px;">{{ b.address }}</td>
+                    <td class="long-text">{{ b.details }}</td>
+                    <td class="long-text">{{ b.phone }}</td>
+                    <td class="long-text">{{ b.date }}</td>
+                    <td class="long-text">{{ b.time }}</td>
+                    <td class="long-text">{{ b.status }}</td>
+                    <td class="long-text">ตารางเกี่ยว</td>
                     <td>
                         <!-- ปุ่มดำเนินการ -->
-                        <button type="button" class="btn btn-primary">แก้ไข</button>
-                        <button type="button" class="btn btn-danger">ลบ</button>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-primary">แก้ไข</button>
+                            <button type="button" class="btn btn-danger">ลบ</button>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}

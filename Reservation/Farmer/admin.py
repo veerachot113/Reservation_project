@@ -1,10 +1,10 @@
 #Farmer/admin.py
-from .models import*
 from django.contrib import admin
 from django.utils.html import format_html
+from .models import Booking
 
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['id','name', 'fullname','display_vehicle_image','display_name_driver','address', 'quantity', 'phone', 'details']
+    list_display = ['id', 'display_vehicle_image', 'name', 'display_name_driver', 'vehicle_type', 'quantity', 'address', 'details', 'phone', 'status']
 
     def display_vehicle_image(self, obj):
         if obj.vehicle:
@@ -12,8 +12,13 @@ class BookingAdmin(admin.ModelAdmin):
         else:
             return None
         
-    def display_name_driver(self,obj):
-        return obj.vehicle.driver
+    def display_name_driver(self, obj):
+        if obj.vehicle:
+            return obj.vehicle.driver.name
+        else:
+            return None
+
     display_vehicle_image.short_description = 'Vehicle Image'
 
 admin.site.register(Booking, BookingAdmin)
+

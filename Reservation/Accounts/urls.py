@@ -11,5 +11,8 @@ urlpatterns = [
     path('registerdriver/', register_driver, name='registerdriver'),#หน้าสมัครเป็นdriver
     path('useregister/', useregister, name='chooserole'),#หน้าสำหรับเลือกบทบาทว่าเป็น farmer หรือ driver
     path('profile/update/', profile_update, name='profile_update'),
-  
+    path('driver-profile/', view_driver_profile, name='view_driver_profile'),
+
 ]
+
+
