@@ -9,4 +9,8 @@ class VehicleAdmin(admin.ModelAdmin):
     def display_image(self, obj):
         return format_html('<img src="{}" width="100" height="100"/>', obj.image.url)
 
-admin.site.register(Vehicle, VehicleAdmin)
+admin.site.register(Vehicle, VehicleAdmin,)
+class DetailvehicleAdmin(admin.ModelAdmin):
+    list_display = ['model', 'driver', 'power', 'details']
+
+admin.site.register(Detailvehicle, DetailvehicleAdmin)

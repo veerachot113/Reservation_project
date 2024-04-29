@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/0.7.4/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://kit.fontawesome.com/541087f5af.js" crossorigin="anonymous"></script>
+
+    <style>
+        .slow-moves {
+            transition: 0.3s;
+        }
+
+        .sidebar-inactive {
+            transform: translateX(-100%);
+        }
+    </style>
+</head>
+
+<body class="bg-grey-light h-screen overflow-hidden">
+    <div class="flex flex-wrap bg-grey-light min-h-screen">
+        <div id="main" class="w-full min-h-full absolute pin-r flex flex-col">
+            <nav id="navbar" class="text-lg p-6 bg-white shadow-md flex justify-between items-center">
+                <div class="container mx-auto flex max-w-6xl flex-wrap items-center justify-end">
+                    {% if user.is_authenticated %}
+                    <button id="menu-switch" class="focus:outline-none">
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    {% endif %}
+                    <div class="flex-grow"></div>
+
+                    {% if user.is_authenticated %}
+                    <button id="profile-menu" class="focus:outline-none flex items-center">
+                        <span class="fa fa-user-circle"></span>
+                        <span class="ml-2">{{ user.username }}</span>
+                    </button>
+                    <div id="dropdown-profile"
+                        class="hidden absolute right-0 mt-2 w-48 py-2 bg-white rounded-lg shadow-xl z-10">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                        <a href="{% url 'logout' %}"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">ออกจากระบบ</a>
+                    </div>
+                    {% else %}
+
+                    <div class="mt-2 sm:mt-0 sm:flex md:order-2">
+                        <!-- Login Button -->
+                        <a href="#login"
+                            class="rounde mr-3 hidden border border-blue-700 py-1.5 px-6 text-center text-sm font-medium text-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 md:inline-block rounded-lg">Login</a>
+
+                        <a href="#register"
+                            class="rounde mr-3 hidden bg-blue-700 py-1.5 px-6 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 md:mr-0 md:inline-block rounded-lg">Register</a>
+                    </div>
+                    <!-- Register Button -->
+                    <div class="md:hidden flex items-center">
+                        <button id="navbar-sticky" data-collapse-toggle="mobile-menu" type="button"
+                            class="inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 md:hidden"
+                            aria-controls="mobile-menu" aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <svg class="h-6 w-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    {% endif %}
+                    <div id="mobile-menu" class="hidden md:hidden   w-full items-center justify-between md:order-1  ">
+                        <ul
+                            class="mt-4 flex flex-col text-center rounded-lg border border-gray-100 bg-gray-50 p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium">
+                            <li>
+                                <a href="#"
+                                    class="block rounded bg-blue-700 py-2 pl-3 pr-4 text-white md:bg-transparent md:p-0 md:text-blue-700"
+                                    aria-current="page">Home</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-blue-700">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        const mobileMenuButton = document.getElementById('navbar-sticky');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+
+</html>

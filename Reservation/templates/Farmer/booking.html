@@ -1,62 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Form</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* ปรับขนาดรูปภาพให้เหมาะสม */
-        .booking-image {
-            width: 100%;
-            height: auto;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container" style="margin-top: 1.5cm;">
-    <div class="row">
-        <!-- รูปภาพ -->
-        
-        <!-- ฟอร์ม -->
-        <div class="col-md-6 order-md-2">
-            <h1 class="mb-3">กรอกรายละเอียดการจอง</h1>
-            <form method="post" action="">
-                {% csrf_token %}
-                <!-- ตำแหน่งของฟอร์ม -->
-                <div class="mb-3">
-                    <label for="name" class="form-label">ชื่อ-สกุล:</label>
-                    <input type="text" class="form-control" id="name" name="fullname">
-                </div>
-                <div class="mb-3">
-                    <label for="address" class="form-label">ที่อยู่</label>
-                    <textarea class="form-control" id="address" name="address" rows="3"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="quantity" class="form-label">จำนวนไร่</label>
-                    <input type="number" class="form-control" id="quantity" name="quantity">
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">เบอร์ติดต่อ</label>
-                    <input type="text" class="form-control" id="phone" name="phone">
-                </div>
-                <div class="mb-3">
-                    <label for="details" class="form-label">รายละเอียด</label>
-                    <textarea class="form-control" id="details" name="details" rows="5"></textarea>
-                </div>
-                <!-- ปุ่มส่ง -->
-                <button type="submit" class="btn btn-primary">ส่ง</button>
-            </form>
-        </div>
-        <div class="col-md-6 order-md-1">
-            <img src="{{ vehicles.image.url }}" alt="Booking Image" class="booking-image">
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Update Profile - Driver
+{% endblock %}
+{% block main %}
+<div class="container mx-auto p-2" style="margin-top: 5cm;">
+    <h6 class="mb-1 text-center p-6">กรอกรายละเอียดการจอง</h6>
+    <div class="flex max-w-4xl mx-auto bg-white border border-gray-200 rounded-lg shadow-lg">
+        <div class="w-1/2 p-4 "> <!-- เพิ่ม style flex และ justify-center -->
+            <img class="flex justify-center object-cover rounded-xl overflow-hidden" src="{{ vehicles.image.url }}"
+                alt="Vehicle">
             <div class="mb-3">
                 <label for="name" class="form-label">ชื่อคนขับ: {{ vehicles.driver }}</label>
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">ที่อยู่: {{ vehicles.model }}</label>
             </div>
             <div class="mb-3">
                 <label for="quantity" class="form-label">ประเภทรถ: {{ vehicles.type }}</label>
@@ -67,13 +22,34 @@
             <div class="mb-3">
                 <label for="phone" class="form-label">จังหวัด: {{ vehicles.province}}</label>
             </div>
-            
         </div>
-
+        <div class="w-1/2 p-4">
+            <form method="post" action="">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700">ชื่อ-สกุล:</label>
+                    <input type="text" id="name" name="fullname"class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-100 focus:border-indigo-500 sm:text-xl">
+                </div>
+                <div class="mb-4">
+                    <label for="address" class="block text-sm font-medium text-gray-700">ที่อยู่:</label>
+                    <textarea id="address" name="address" rows="4"class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="quantity" class="block text-sm font-medium text-gray-700">จำนวนไร่:</label>
+                    <input type="number" id="quantity" name="quantity"class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xl">
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="block text-sm font-medium text-gray-700">เบอร์ติดต่อ:</label>
+                    <input type="text" id="phone" name="phone"class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-xl">
+                </div>
+                <div class="mb-4">
+                    <label for="details" class="block text-sm font-medium text-gray-700">รายละเอียด:</label>
+                    <textarea id="details" name="details" rows="4"class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                </div>
+                <!-- ปุ่มส่ง -->
+                <button type="submit"class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">เพิ่ม</button>
+            </form>
+        </div>
     </div>
 </div>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}

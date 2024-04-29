@@ -1,22 +1,16 @@
 #Driver/urls.py
 from django.shortcuts import render, redirect
-from .forms import VehicleForm
+from .forms import *
 from django.contrib.auth.decorators import login_required
-from .models import Vehicle
-from Accounts.models import UserDriver
+from .models import *
+from Accounts.models import *
 
 
 @login_required
 def home_driver(request):
     vehicles = Vehicle.objects.all()
     return render(request, 'Driver/home_driver.html',{'vehicles': vehicles})
-
-
-
-
-
-from Accounts.models import UserDriver  # Import UserDriver model from Accounts app
-
+#เพิ่มรถ
 def add_vehicle(request):
     if request.method == 'POST':
         try:
@@ -44,22 +38,29 @@ def add_vehicle(request):
                 'province': latest_vehicle.province,
             }
         form = VehicleForm(initial=initial_data)
-    return render(request, 'driver/add_vehicle.html', {'form': form})
+    return render(request, 'Driver/add_vehicle.html', {'form': form})
 
 
+@login_required
+def add_detailvehicle(request, id=None):  # เพิ่มพารามิเตอร์ id และกำหนดค่าเริ่มต้นเป็น None
+    if id is not None:  # ตรวจสอบว่ามี id ที่ส่งมาหรือไม่
+        try:
+            vehicle = Vehicle.objects.get(pk=id)
+        except Vehicle.DoesNotExist:
+            return redirect('home_driver')  
 
-# @login_required
-# def add_vehicle(request):
-#     if request.method == 'POST':
-#         form = VehicleForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             vehicle = form.save(commit=False)
-#             driver = UserDriver.objects.get(pk=request.user.id)
-#             vehicle.driver = driver  # กำหนด driver เป็นอ็อบเจกต์ของคนขับที่เข้าสู่ระบบ
-#             vehicle.save()
-#             return redirect('home_driver')  # หรือไปยัง URL ที่คุณต้องการ
-#     else:
-#         form = VehicleForm(initial={'driver': request.user}) 
-#     return render(request, 'driver/add_vehicle.html', {'form': form, 'driver_name': request.user.get_full_name()})
+        if request.method == 'POST':
+            form = DetailvehicleForm(request.POST)
+            if form.is_valid():
+                detail_vehicle = form.save(commit=False)
+                detail_vehicle.vehicle = vehicle  
+                detail_vehicle.save()
+                return redirect('home_driver')  
+        else:
+            form = DetailvehicleForm()
+        return render(request, 'Driver/add_detailvehicle.html', {'form': form, 'vehicle': vehicle})
+    else:
+        return redirect('home_driver')  # ถ้าไม่มี id ส่งมาให้ redirect กลับไปยังหน้าหลักของ driver
+
 
 

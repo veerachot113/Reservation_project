@@ -1,7 +1,7 @@
 #Driver/models.py
 from django.db import models
 from Accounts.models import UserDriver  # import UserDriver model from Accounts app
-
+#modelเพิ่มรถ
 class Vehicle(models.Model):
     driver = models.OneToOneField(UserDriver, on_delete=models.CASCADE, related_name='vehicles')  # Add related_name='vehicles'
     model = models.CharField(max_length=100, verbose_name='รุ่น')
@@ -17,4 +17,12 @@ class Vehicle(models.Model):
     def __str__(self):
         return self.model
 
+#modelเพิ่มรายละเอียดรถ
 
+class Detailvehicle(models.Model):
+    driver = models.OneToOneField(UserDriver, on_delete=models.CASCADE, related_name='vehicles_detailvehicle')  # Add related_name='vehicles'
+    power = models.CharField(max_length=100, verbose_name='กำลังเครื่อง')
+    details = models.TextField(verbose_name='รายละเอียด')
+
+    def __str__(self):
+        return self.power
