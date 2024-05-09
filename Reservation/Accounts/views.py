@@ -94,29 +94,6 @@ def user_login(request):
     return render(request, 'Accounts/registration/login.html', {'form': form})
 
 
-
-
-from django.http import HttpResponse
-
-def view_driver_profile(request):
-    if request.user.is_authenticated:
-        if request.user.groups.filter(name='driver').exists():
-            # ตรวจสอบว่าผู้ใช้เป็นเจ้าของรถหรือไม่
-            is_vehicle_owner = False
-            if hasattr(request.user, 'vehicles'):
-                is_vehicle_owner = True
-
-            context = {
-                'user': request.user,
-                'is_vehicle_owner': is_vehicle_owner,
-            }
-            return render(request, 'Driver/driver_profile.html', context)
-        else:
-            return render(request, 'Driver/driver_profile.html')  # หรือหน้าโปรไฟล์ของคนขับรถ
-    else:
-        # หากไม่ได้เข้าสู่ระบบ ให้แสดงหน้าโปรไฟล์ได้ทันที
-        return render(request, 'Driver/driver_profile.html')
-
 @login_required
 def profile_update(request):
     form = None
@@ -138,3 +115,28 @@ def profile_update(request):
         else:
             form = UserDriverUpdateForm(instance=request.user)
         return render(request, 'profile_driver.html', {'form': form})  # ปรับเปลี่ยนเพื่อใช้ profile_driver.html
+
+
+
+def view_driver_profile(request):
+    if request.user.is_authenticated:
+        if request.user.groups.filter(name='driver').exists():
+            # ตรวจสอบว่าผู้ใช้เป็นเจ้าของรถหรือไม่
+            is_vehicle_owner = False
+            if hasattr(request.user, 'vehicles'):
+                is_vehicle_owner = True
+
+            context = {
+                'user': request.user,
+                'is_vehicle_owner': is_vehicle_owner,
+            }
+            return render(request, 'Driver/driver_profile.html', context)
+        else:
+            return render(request, 'Driver/driver_profile.html')  # หรือหน้าโปรไฟล์ของคนขับรถ
+    else:
+        # หากไม่ได้เข้าสู่ระบบ ให้แสดงหน้าโปรไฟล์ได้ทันที
+        return render(request, 'Driver/driver_profile.html')
+    
+
+
+    

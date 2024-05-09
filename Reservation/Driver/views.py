@@ -11,6 +11,7 @@ def home_driver(request):
     vehicles = Vehicle.objects.all()
     return render(request, 'Driver/home_driver.html',{'vehicles': vehicles})
 #เพิ่มรถ
+@login_required
 def add_vehicle(request):
     if request.method == 'POST':
         try:
