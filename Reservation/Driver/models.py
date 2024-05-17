@@ -1,7 +1,7 @@
 #Driver/models.py
 from django.db import models
-from Accounts.models import UserDriver  # import UserDriver model from Accounts app
-#modelเพิ่มรถ
+from Accounts.models import UserDriver  
+
 class Vehicle(models.Model):
     driver = models.OneToOneField(UserDriver, on_delete=models.CASCADE, related_name='vehicles')  # Add related_name='vehicles'
     model = models.CharField(max_length=100, verbose_name='รุ่น')

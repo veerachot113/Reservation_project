@@ -15,7 +15,15 @@ def custom_logout(request):
     logout(request)
     return redirect('home')  
 
+@login_required
+def home_driver(request):
+    vehicles = Vehicle.objects.all()
+    return render(request, 'Driver/home_driver.html',{'vehicles': vehicles})
 
+@login_required
+def home_farmer(request):
+    vehicles = Vehicle.objects.all()
+    return render(request,'Farmer/home_farmer.html',{'vehicles': vehicles})
 
 def home_accounts(request):
     vehicles = Vehicle.objects.all()

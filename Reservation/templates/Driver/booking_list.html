@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Detail</title>
+</head>
+<body>
+    <!-- Display booking details -->
+    <h1>Booking Detail</h1>
+    <p>Driver: {{ booking.driver }}</p>
+    <p>Delivery Date: {{ booking.delivery_date }}</p>
+    <p>Delivery Time: {{ booking.delivery_time }}</p>
+    <p>Remarks: {{ booking.remarks }}</p>
+    
+    <!-- Add approve and reject buttons -->
+    <form action="{% url 'approve_booking' booking.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Approve</button>
+    </form>
+    <form action="{% url 'reject_booking' booking.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Reject</button>
+    </form>
+</body>
+</html>

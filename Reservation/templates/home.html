@@ -6,7 +6,7 @@
 <div class="pt-32  bg-white">
     <h1 class="text-center text-2xl font-bold text-gray-800">All Products</h1>
 </div>
-<section class="py-10 bg-gray-300">
+<section class="py-10 bg-gray-200">
 <div class="container mx-auto px-4 py-8">
     <div class="mx-auto grid max-w-6xl grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
         {% for vehicle in vehicles %}
@@ -41,7 +41,7 @@
                         <!-- Booking Buttons -->
                         <div class="flex justify-center space-x-16 items-center">
                             <a href="calendar.html " class="w-28 h-10 bg-blue-500 text-white text-xs font-bold uppercase rounded flex justify-center items-center hover:transform hover:scale-110 duration-300">ตารางการจอง</a>
-                            <a href="{% url 'booking' vehicle.id %}" class="w-28 h-10 bg-green-500 text-white text-xs font-bold uppercase rounded flex justify-center items-center hover:transform hover:scale-110 duration-300">จองทันที</a>
+                            <a href="{% url 'create_booking' vehicle_id=vehicle.id %}" class="w-28 h-10 bg-green-500 text-white text-xs font-bold uppercase rounded flex justify-center items-center hover:transform hover:scale-110 duration-300">จองทันที</a>
                         </div>
                     </div>
                 </div>

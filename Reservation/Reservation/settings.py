@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'AuthAdmin',
     'Farmer',
     'Driver',
+    'Booking',
+
     "crispy_forms",
     "crispy_tailwind",
 ]
@@ -115,9 +117,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = 'th'
+TIME_ZONE = 'Asia/Bangkok'
 
-TIME_ZONE = "UTC"
+# Whether to use timezone-aware datetimes
+USE_TZ = True
 
 USE_I18N = True
 

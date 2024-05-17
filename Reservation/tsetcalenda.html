@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar with Event Modal</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+</head>
+<body>
+    <div class="container mx-auto mt-10">
+        <div id="calendar"></div>
+    </div>
+
+    <!-- Modal -->
+    <div id="eventModal" class="fixed z-10 inset-0 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">เพิ่มตารางงาน</h3>
+                    <div class="mt-2">
+                        <form id="eventForm">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="title">หัวข้อ:</label>
+                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="ชื่อหัวข้อ">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="description">รายละเอียด:</label>
+                                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" placeholder="รายละเอียด"></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="startDate">วันเริ่มต้น:</label>
+                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="startDate" type="date">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="endDate">วันสิ้นสุด:</label>
+                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="endDate" type="date">
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick="saveEvent()">
+                                    บันทึก
+                                </button>
+                                <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onclick="closeModal()">
+                                    ยกเลิก
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                dateClick: function(info) {
+                    document.getElementById('startDate').value = info.dateStr;
+                    document.getElementById('endDate').value = info.dateStr;
+                    openModal();
+                }
+            });
+            calendar.render();
+        });
+
+        function openModal() {
+            document.getElementById('eventModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('eventModal').classList.add('hidden');
+        }
+
+        function saveEvent() {
+            var title = document.getElementById('title').value;
+            var description = document.getElementById('description').value;
+            var startDate = document.getElementById('startDate').value;
+            var endDate = document.getElementById('endDate').value;
+
+            if (title) {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = FullCalendar.getCalendar(calendarEl);
+
+                calendar.addEvent({
+                    title: title,
+                    start: startDate,
+                    end: endDate,
+                    description: description
+                });
+
+                closeModal();
+            } else {
+                alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+            }
+        }
+    </script>
+</body>
+</html>

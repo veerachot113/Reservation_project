@@ -4,12 +4,6 @@ from .forms import *
 from django.contrib.auth.decorators import login_required
 from .models import *
 from Accounts.models import *
-
-
-@login_required
-def home_driver(request):
-    vehicles = Vehicle.objects.all()
-    return render(request, 'Driver/home_driver.html',{'vehicles': vehicles})
 #เพิ่มรถ
 @login_required
 def add_vehicle(request):

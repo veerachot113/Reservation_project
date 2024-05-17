@@ -2,12 +2,14 @@
 from django.contrib import admin
 from .models import UserFarmer, UserDriver
 
+@admin.register(UserFarmer)
 class UserFarmerAdmin(admin.ModelAdmin):
-    list_display = ['username', 'email', 'first_name', 'last_name', 'is_farmer', 'is_driver']  # สังเกตุได้ที่ 'is_farmer', 'is_driver'
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff')
+    search_fields = ('username', 'email', 'first_name', 'last_name')
+    list_filter = ('is_active', 'is_staff')
 
-admin.site.register(UserFarmer, UserFarmerAdmin)
-
+@admin.register(UserDriver)
 class UserDriverAdmin(admin.ModelAdmin):
-    list_display = ['username', 'email',  'first_name', 'last_name','is_farmer', 'is_driver']  # สังเกตุได้ที่ 'is_farmer', 'is_driver'
-
-admin.site.register(UserDriver, UserDriverAdmin)
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff')
+    search_fields = ('username', 'email', 'first_name', 'last_name')
+    list_filter = ('is_active', 'is_staff')

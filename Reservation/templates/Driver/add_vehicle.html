@@ -1,15 +1,53 @@
-<!-- addcar.html -->
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 
-<h2>Add Vehicle</h2>
+<h2 class="text-center text-2xl font-semibold mb-6">Add Vehicle</h2>
 
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <button type="submit">Submit</button>
-</form>
+<div class="flex justify-center items-center h-screen">
+    <div class="bg-white rounded-lg shadow-lg p-8 max-w-md mx-auto justify-center">
+        <div class="form">
+            <h1 class="text-center text-2xl font-semibold mb-6">เพิ่มรถ</h1>
+            <div class="w-full h-48 border border-dashed border-gray-300 rounded-lg flex justify-center items-center mb-4">
+                <img id="preview" src="#" alt="Preview" class="w-auto h-auto">
+            </div>
+            <form id="add_vehicle_form" enctype="multipart/form-data" method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+
+                <label for="image" class="block mb-2">รูปภาพรถ</label>
+                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)"
+                    class="block w-full border border-gray-300 rounded-md px-3 py-2 mb-4">
+
+            </form>
+            <button type="submit"
+                class="button bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-300 w-full"
+                onclick="document.getElementById('add_vehicle_form').submit()">เพิ่มรถ</button>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    window.onload = function() {
+        // เมื่อฟอร์มถูกส่งให้ดำเนินการตามที่คุณต้องการ
+        document.getElementById("add_vehicle_form").addEventListener("submit", function(event) {
+            // ส่งข้อมูลฟอร์มไปยังหน้าเพิ่มรถ
+            // ในที่นี้คือการส่งไปยัง URL ที่รับข้อมูลรถเพื่อบันทึกลงในฐานข้อมูล
+            // คุณสามารถแก้ไข URL ตามที่คุณต้องการ
+            this.action = "{% url 'add_vehicle' %}";
+        });
+
+        // เมื่อมีการเลือกรูปภาพให้แสดงรูปพรีวิว
+        document.getElementById('image').addEventListener('change', previewImage);
+    };
+    
+    function previewImage(event) {
+        var preview = document.getElementById('preview');
+        preview.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
 
 {% endblock %}
