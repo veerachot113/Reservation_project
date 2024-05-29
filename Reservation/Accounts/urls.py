@@ -4,7 +4,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', home_accounts, name='home'),
+    path('', home, name='home'),
     path('logout/', custom_logout, name='logout'),
     path('userlogin/', user_login, name='login'),#หน้าlogin
     path('registerfarmer/', register_farmer, name='registerfarmer'),#หน้าสมัครเป็นfarmer
@@ -13,7 +13,7 @@ urlpatterns = [
     path('home_driver/', home_driver, name='home_driver'),
     path('home_farmer/', home_farmer, name='home_farmer'),#
     path('profile/update/', profile_update, name='profile_update'),
-    path('driver-profile/<int:driver_id>/', view_driver_profile, name='view_driver_profile'),
+    path('driver/<int:driver_id>/', view_driver_profile, name='view_driver_profile'),
 
 ]
 

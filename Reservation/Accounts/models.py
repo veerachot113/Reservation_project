@@ -13,8 +13,6 @@ class UserFarmer(AbstractUser):
     def __str__(self):
         return "farmer"   
  
-
-
 class UserDriver(AbstractUser):
     groups = models.ManyToManyField(Group, verbose_name="Groups", blank=True, related_name='Accounts_driver_groups')
     user_permissions = models.ManyToManyField(Permission, verbose_name="User Permissions", blank=True, related_name='Accounts_driver_user_permissions')

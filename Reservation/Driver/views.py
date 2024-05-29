@@ -1,39 +1,55 @@
-#Driver/urls.py
+#Driver/views.py
 from django.shortcuts import render, redirect
 from .forms import *
 from django.contrib.auth.decorators import login_required
 from .models import *
 from Accounts.models import *
+from Booking.models import *
+from django.shortcuts import render, redirect, get_object_or_404
+
+
 #เพิ่มรถ
 @login_required
 def add_vehicle(request):
+    no_of_pending_request = count_pending_rent_request(request.user)
+    existing_vehicle = Vehicle.objects.filter(driver=request.user).first()
     if request.method == 'POST':
-        try:
-            # ตรวจสอบว่ามีรถของผู้ใช้งานที่เข้าสู่ระบบอยู่แล้วหรือไม่
-            vehicle = Vehicle.objects.get(driver=request.user)
-            form = VehicleForm(request.POST, request.FILES, instance=vehicle)
-        except Vehicle.DoesNotExist:
-            # ถ้ายังไม่มีให้สร้างรถใหม่
+        if existing_vehicle:
+            form = VehicleForm(request.POST, request.FILES, instance=existing_vehicle)
+        else:
             form = VehicleForm(request.POST, request.FILES)
-            
+        
         if form.is_valid():
             form.instance.driver = request.user
             form.save()
             return redirect('home_driver')
     else:
-        # ดึงข้อมูลรถล่าสุดของผู้ใช้งานที่เข้าสู่ระบบ
-        latest_vehicle = Vehicle.objects.filter(driver=request.user).order_by('-id').first()
-        initial_data = {}
-        if latest_vehicle:
-            initial_data = {
-                'image': latest_vehicle.image,
-                'model': latest_vehicle.model,
-                'type': latest_vehicle.type,
-                'price': latest_vehicle.price,
-                'province': latest_vehicle.province,
-            }
-        form = VehicleForm(initial=initial_data)
-    return render(request, 'Driver/add_vehicle.html', {'form': form})
+        if existing_vehicle:
+            form = VehicleForm(instance=existing_vehicle)
+        else:
+            form = VehicleForm()
+    
+    return render(request, 'Driver/add_vehicle.html', {
+        'form': form,
+        'existing_vehicle': existing_vehicle,
+        'no_of_pending_request': no_of_pending_request
+    })
+
+@login_required
+def delete_vehicle(request, vehicle_id):
+    vehicle = get_object_or_404(Vehicle, id=vehicle_id, driver=request.user)
+    if request.method == 'POST':
+        vehicle.delete()
+        return redirect('home_driver')
+    return render(request, 'Driver/confirm_delete.html', {'vehicle': vehicle})
+
+def count_pending_rent_request(driver):
+    no_of_pending_request = 0
+    bookings = Booking.objects.filter(vehicle__driver=driver)
+    for booking in bookings:
+        if booking.request_status == "Pending":
+            no_of_pending_request += 1
+    return no_of_pending_request
 
 
 @login_required
@@ -59,3 +75,13 @@ def add_detailvehicle(request, id=None):  # เพิ่มพารามิเ
 
 
 
+# def count_pending_rent_request(driver):
+#     no_of_pending_request = 0
+#     bookings = Booking.objects.filter(vehicle__driver=driver)
+#     for booking in bookings:
+#         if booking.request_status == "Pending":
+#             no_of_pending_request += 1
+#     return no_of_pending_request
+ 
+
+     

@@ -1,4 +1,12 @@
-<!-- driver/booking_list.html -->
+
+
+
+
+
+
+
+
+        <!-- driver/booking_driverlist.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,8 +46,7 @@
                     <th class="py-2 px-4 border-b">จำนวนไร่</th>
                     <th class="py-2 px-4 border-b">ที่อยู่</th>
                     <th class="py-2 px-4 border-b">รายละเอียด</th>
-                    <th class="py-2 px-4 border-b">เบอร์โทร</th>
-                    <th class="py-2 px-4 border-b">วันที่/เวลา</th>
+                    <th class="py-2 px-4 border-b">เบอร์โทร</th> 
                     <th class="py-2 px-4 border-b">สถานะคำขอ</th>
                 </tr>
             </thead>
@@ -53,7 +60,6 @@
                     <td class="px-5 py-4 text-center">{{booking.address}}</td>
                     <td class="px-5 py-4 text-center">{{booking.details}}</td>
                     <td class="px-5 py-4 text-center">{{booking.phone}}</td>
-                    <td class="px-5 py-4 text-center">{{booking.appointment_date}}</td>
                     <td class="px-5 py-4 text-center">
                         <a class="bg-green-500 hover:bg-green-700  font-bold py-2 px-4 rounded" href="/RentVehicle/AcceptRequest?id={{booking.id}}">Accept</a>
                         <a class="bg-red-500 hover:bg-red-700  font-bold py-2 px-4 rounded " href="/RentVehicle/DeclineRequest?id={{bookink.id}}">Decline</a>
@@ -74,7 +80,7 @@
                     <th class="py-2 px-4 border-b">ที่อยู่</th>
                     <th class="py-2 px-4 border-b">รายละเอียด</th>
                     <th class="py-2 px-4 border-b">เบอร์โทร</th>
-                    <th class="py-2 px-4 border-b">วันที่/เวลา</th>
+                    <th class="py-2 px-4 border-b">เวลานัดหมาย</th>
                     <th class="py-2 px-4 border-b">อนุมัติโดย</th>
                     <th class="py-2 px-4 border-b">สถานะคำขอ</th>
                 </tr>
@@ -112,7 +118,7 @@
                     <th class="py-2 px-4 border-b">ที่อยู่</th>
                     <th class="py-2 px-4 border-b">รายละเอียด</th>
                     <th class="py-2 px-4 border-b">เบอร์โทร</th>
-                    <th class="py-2 px-4 border-b">วันที่/เวลา</th>
+                    <th class="py-2 px-4 border-b">เวลาปฏิเสธ</th>
                     <th class="py-2 px-4 border-b">ไม่อนุมัติโดย</th>
                     <th class="py-2 px-4 border-b">สถานะคำขอ</th>
                 </tr>
@@ -141,7 +147,3 @@
 </body>
 </html>
 
-
-    <!-- <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="styled-contacts" role="tabpanel" aria-labelledby="contacts-tab">
-        <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
-    </div> -->

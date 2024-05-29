@@ -8,7 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group 
 from django.contrib.auth.decorators import login_required
 from Driver.models import Vehicle
-
+from Booking.models import*
 
 @login_required
 def custom_logout(request):
@@ -17,17 +17,36 @@ def custom_logout(request):
 
 @login_required
 def home_driver(request):
+    no_of_pending_request = count_pending_rent_request(request.user)
     vehicles = Vehicle.objects.all()
-    return render(request, 'Driver/home_driver.html',{'vehicles': vehicles})
+    return render(request, 'Driver/home_driver.html',{'vehicles': vehicles, 'no_of_pending_request': no_of_pending_request})
 
 @login_required
 def home_farmer(request):
     vehicles = Vehicle.objects.all()
     return render(request,'Farmer/home_farmer.html',{'vehicles': vehicles})
 
-def home_accounts(request):
+# def home(request):
+#     if request.user.is_authenticated:
+#         if request.user.groups.filter(name='farmer').exists():
+#             return redirect('home_farmer')
+#         elif request.user.groups.filter(name='driver').exists():
+#             return redirect('home_driver')
+    
+#     vehicles = Vehicle.objects.all()
+#     return render(request, 'home.html', {'vehicles': vehicles, 'driver_id': request.user.id if request.user.is_authenticated else None})
+
+def home(request):
     vehicles = Vehicle.objects.all()
-    return render(request, 'home.html', {'vehicles': vehicles, 'driver_id': request.user.id})
+    if request.method == 'POST':
+        selected_province = request.POST.get('province_select', None)
+        selected_vehicle_types = request.POST.getlist('vehicle_type')
+        if selected_province:
+            vehicles = vehicles.filter(province=selected_province)
+        if selected_vehicle_types:
+            vehicles = vehicles.filter(type__in=selected_vehicle_types)
+
+    return render(request, 'home.html', {'vehicles': vehicles})
 
 def useregister(request):
      return render(request,'chooserole.html') 
@@ -104,6 +123,7 @@ def user_login(request):
 
 @login_required
 def profile_update(request):
+    no_of_pending_request = count_pending_rent_request(request.user)
     form = None
     if 'farmer' in [group.name for group in request.user.groups.all()]:
         if request.method == 'POST':
@@ -122,29 +142,44 @@ def profile_update(request):
                 return redirect('profile_update')
         else:
             form = UserDriverUpdateForm(instance=request.user)
-        return render(request, 'profile_driver.html', {'form': form})  # ปรับเปลี่ยนเพื่อใช้ profile_driver.html
+        return render(request, 'profile_driver.html', {'form': form, 'no_of_pending_request': no_of_pending_request})
 
 
 
-def view_driver_profile(request):
-    if request.user.is_authenticated:
-        if request.user.groups.filter(name='driver').exists():
-            # ตรวจสอบว่าผู้ใช้เป็นเจ้าของรถหรือไม่
-            is_vehicle_owner = False
-            if hasattr(request.user, 'vehicles'):
-                is_vehicle_owner = True
+from django.shortcuts import render, get_object_or_404
+from .models import UserDriver
 
-            context = {
-                'user': request.user,
-                'is_vehicle_owner': is_vehicle_owner,
-            }
-            return render(request, 'Driver/driver_profile.html', context)
-        else:
-            return render(request, 'Driver/driver_profile.html')  # หรือหน้าโปรไฟล์ของคนขับรถ
-    else:
-        # หากไม่ได้เข้าสู่ระบบ ให้แสดงหน้าโปรไฟล์ได้ทันที
-        return render(request, 'Driver/driver_profile.html')
+def view_driver_profile(request, driver_id):
+    no_of_pending_request = count_pending_rent_request(request.user)
+    driver = get_object_or_404(UserDriver, id=driver_id)
     
+    is_vehicle_owner = False
+    if hasattr(driver, 'vehicles'):
+        is_vehicle_owner = True
 
+    context = {
+        'driver': driver,
+        'is_vehicle_owner': is_vehicle_owner,
+        'no_of_pending_request': no_of_pending_request,
+    }
+    return render(request, 'Driver/driver_profile.html', context)
+
+
+
+    
+def count_pending_rent_request(driver):
+    no_of_pending_request = 0
+    bookings = Booking.objects.filter(vehicle__driver=driver)
+    for booking in bookings:
+        if booking.request_status == "Pending":
+            no_of_pending_request += 1
+    return no_of_pending_request
+ 
+
+def count_pending_rent_request(driver=None):
+    if driver and not driver.is_anonymous:
+        bookings = Booking.objects.filter(vehicle__driver=driver, request_status="Pending")
+        return bookings.count()
+    return 0
 
     

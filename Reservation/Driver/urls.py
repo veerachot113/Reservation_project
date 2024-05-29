@@ -6,6 +6,7 @@ urlpatterns = [
     # Provide a unique path for the driver home
     path('add_vehicle/', add_vehicle, name='add_vehicle'),
     path('add_detailvehicle/', add_detailvehicle, name='add_detailvehicle'),
+    path('delete-vehicle/<int:vehicle_id>/',delete_vehicle, name='delete_vehicle'),
 
     
 ]
